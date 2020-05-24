@@ -19,7 +19,7 @@ RUN apt-get update \
 	&& wget -q -O /opt/container_startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/container_startup.sh \
 	&& wget -q -O /opt/x11vnc_entrypoint.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/x11vnc_entrypoint.sh \
 	&& mkdir -p /opt/startup_scripts \
-	&& wget -q -O /opt/startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/startup.sh
+	&& wget -q -O /opt/startup_scripts/startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/startup.sh
 # Update apt for the new obs repository
 RUN apt-get update \
 	&& apt install -y obs-studio \
@@ -30,6 +30,7 @@ RUN apt-get update \
 	&& dpkg -i /tmp/*.deb \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& chmod +x /opt/*.sh \
+	&& chmod +x /opt/startup_scripts/*.sh \
 	&& mkdir /config \
 	&& mkdir -p /root/.config/obs-studio 
 # Add menu entries to the container
