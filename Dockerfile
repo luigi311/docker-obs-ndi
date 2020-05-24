@@ -18,20 +18,22 @@ RUN apt-get update \
 	&& wget -q -O /opt/container_startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/container_startup.sh \
 	&& wget -q -O /opt/x11vnc_entrypoint.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/x11vnc_entrypoint.sh \
 	&& mkdir -p /opt/startup_scripts \
-	&& wget -q -O /opt/startup_scripts/startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/startup.sh
+	&& wget -q -O /opt/startup_scripts/startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/startup.sh \
+	&& wget -q -O /tmp/libndi4_4.5.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/libndi4_4.5.1-1_amd64.deb \
+	&& wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb 
 # Update apt for the new obs repository
 RUN apt-get update \
+	&& mkdir -p /config/obs-studio \
+	&& ln -s /config/obs-studio/ /root/.config/ \
 	&& apt install -y obs-studio \
 	&& apt-get clean -y \
 # Download and install the plugins for NDI
-	&& wget -q -O /tmp/libndi4_4.5.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/libndi4_4.5.1-1_amd64.deb \
-	&& wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb \
 	&& dpkg -i /tmp/*.deb \
 	&& rm -rf /tmp/*.deb \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& chmod +x /opt/*.sh \
-	&& chmod +x /opt/startup_scripts/*.sh \
-	&& mkdir -p /config/obs-studio 
+	&& chmod +x /opt/startup_scripts/*.sh 
+	 
 # Add menu entries to the container
 RUN echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"OBS Screencast\" command=\"obs\"" >> /usr/share/menu/custom-docker \
 	&& echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"Xterm\" command=\"xterm -ls -bg black -fg white\"" >> /usr/share/menu/custom-docker && update-menus
