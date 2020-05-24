@@ -1,6 +1,6 @@
 #!/bin/bash
 OUR_IP=$(hostname -i)
-
+rm -rf /tmp/.X*
 # start VNC server (Uses VNC_PASSWD Docker ENV variable)
 mkdir -p /tmp/.vnc && echo "$VNC_PASSWD" | vncpasswd -f > /tmp/.vnc/passwd
 vncserver :0 -localhost no -nolisten -rfbauth /tmp/.vnc/passwd -xstartup /opt/x11vnc_entrypoint.sh
