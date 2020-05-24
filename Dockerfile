@@ -31,8 +31,7 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& chmod +x /opt/*.sh \
 	&& chmod +x /opt/startup_scripts/*.sh \
-	&& mkdir /config \
-	&& mkdir -p /root/.config/obs-studio 
+	&& mkdir -p /config/obs-studio 
 # Add menu entries to the container
 RUN echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"OBS Screencast\" command=\"obs\"" >> /usr/share/menu/custom-docker \
 	&& echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"Xterm\" command=\"xterm -ls -bg black -fg white\"" >> /usr/share/menu/custom-docker && update-menus
