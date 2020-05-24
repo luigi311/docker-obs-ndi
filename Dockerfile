@@ -23,7 +23,7 @@ RUN apt-get update \
 	&& wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb 
 # Update apt for the new obs repository
 RUN apt-get update \
-	&& mkdir -p /config/obs-studio \
+	&& mkdir -p /config/obs-studio /root/.config/ \
 	&& ln -s /config/obs-studio/ /root/.config/ \
 	&& apt install -y obs-studio \
 	&& apt-get clean -y \
