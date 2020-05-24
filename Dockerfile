@@ -18,7 +18,8 @@ RUN apt-get update \
 # Copy various files to their respective places
 	&& wget -q -O /opt/container_startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/container_startup.sh \
 	&& wget -q -O /opt/x11vnc_entrypoint.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/x11vnc_entrypoint.sh \
-	&& mkdir /opt/startup_scripts
+	&& mkdir -p /opt/startup_scripts \
+    && wget -q -O /opt/startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/startup.sh
 # Update apt for the new obs repository
 RUN apt-get update \
     && apt install -y obs-studio \
@@ -28,11 +29,9 @@ RUN apt-get update \
     && wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb \
     && dpkg -i /tmp/*.deb \
     && rm -rf /var/lib/apt/lists/* \
-    && chmod +x /opt/container_startup.sh \
-    && chmod +x /opt/x11vnc_entrypoint.sh \
+    && chmod +x /opt/*.sh \
     && mkdir /config \
     && mkdir -p /root/.config/obs-studio 
-#    && ln -s /root/.config/obs-studio /config
 # Add menu entries to the container
 RUN echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"OBS Screencast\" command=\"obs\"" >> /usr/share/menu/custom-docker \
     && echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"Xterm\" command=\"xterm -ls -bg black -fg white\"" >> /usr/share/menu/custom-docker && update-menus
