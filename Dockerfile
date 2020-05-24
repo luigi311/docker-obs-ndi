@@ -27,8 +27,6 @@ RUN apt-get update \
     && wget -q -O /tmp/libndi4_4.5.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/libndi4_4.5.1-1_amd64.deb \
     && wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb \
     && dpkg -i /tmp/*.deb \
-    && /etc/init.d/dbus start \
-    && /etc/init.d/avahi-daemon start \
     && rm -rf /var/lib/apt/lists/* \
     && chmod +x /opt/container_startup.sh \
     && chmod +x /opt/x11vnc_entrypoint.sh \
