@@ -6,7 +6,7 @@ EXPOSE 5900
 EXPOSE 5901
 # Use environment variable to allow custom VNC passwords
 ENV VNC_PASSWD=123456
-ENV HOME="/config"
+#ENV HOME="/config"
 # Make sure the dependencies are met
 RUN apt-get update \
 	&& apt install -y tigervnc-standalone-server fluxbox xterm git net-tools python python-numpy scrot wget software-properties-common vlc module-init-tools avahi-daemon \
