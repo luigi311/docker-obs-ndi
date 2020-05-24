@@ -24,7 +24,7 @@ RUN apt-get update \
 # Update apt for the new obs repository
 RUN apt-get update \
 	&& mkdir -p /config/obs-studio /root/.config/ \
-	&& ln -s /config/obs-studio/ /root/.config/ \
+	&& ln -s /config/obs-studio/ /root/.config/obs-studio \
 	&& apt install -y obs-studio \
 	&& apt-get clean -y \
 # Download and install the plugins for NDI
