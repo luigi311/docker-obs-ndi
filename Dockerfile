@@ -1,5 +1,11 @@
 FROM    ubuntu:18.04
 ARG DEBIAN_FRONTEND="noninteractive"
+# OBS-NDI Version
+ARG NDI_VERSION="4.9.1"
+# noVNC Version
+ARG noVNC_VERSION="v1.2.0"
+# websockify Version
+ARG websockify_VERSION="v0.10.0"
 # for the VNC connection
 EXPOSE 5900
 # for the browser VNC client
@@ -11,16 +17,16 @@ RUN apt-get update \
 	&& apt install -y tigervnc-standalone-server fluxbox xterm git net-tools python python-numpy scrot wget software-properties-common vlc module-init-tools avahi-daemon \
 	&& sed -i 's/geteuid/getppid/' /usr/bin/vlc \
 	&& add-apt-repository ppa:obsproject/obs-studio \
-	&& git clone --branch v1.0.0 --single-branch https://github.com/novnc/noVNC.git /opt/noVNC \
-	&& git clone --branch v0.8.0 --single-branch https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify \
+	&& git clone --branch "${noVNC_VERSION}" --single-branch https://github.com/novnc/noVNC.git /opt/noVNC \
+	&& git clone --branch "${websockify_VERSION}" --single-branch https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify \
 	&& ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html \
 # Copy various files to their respective places
-	&& wget -q -O /opt/container_startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/container_startup.sh \
-	&& wget -q -O /opt/x11vnc_entrypoint.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/x11vnc_entrypoint.sh \
+	&& wget -q -O /opt/container_startup.sh https://raw.githubusercontent.com/luigi311/docker-obs-ndi/master/container_startup.sh \
+	&& wget -q -O /opt/x11vnc_entrypoint.sh https://raw.githubusercontent.com/luigi311/docker-obs-ndi/master/x11vnc_entrypoint.sh \
 	&& mkdir -p /opt/startup_scripts \
-	&& wget -q -O /opt/startup_scripts/startup.sh https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/startup.sh \
-	&& wget -q -O /tmp/libndi4_4.5.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/libndi4_4.5.1-1_amd64.deb \
-	&& wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb 
+	&& wget -q -O /opt/startup_scripts/startup.sh https://raw.githubusercontent.com/luigi311/docker-obs-ndi/master/startup.sh \
+	&& wget -q -O /tmp/libndi4_4.5.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/${NDI_VERSION}/libndi4_4.5.1-1_amd64.deb \
+	&& wget -q -O /tmp/obs-ndi_4.9.1-1_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/${NDI_VERSION}/obs-ndi_4.9.1-1_amd64.deb 
 # Update apt for the new obs repository
 RUN apt-get update \
 	&& mkdir -p /config/obs-studio /root/.config/ \
