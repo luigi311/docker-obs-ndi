@@ -34,9 +34,9 @@ RUN git config --global advice.detachedHead false \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy container_startup.sh to /opt, copy x11vnc_entrypoint.sh to /opt, copy startup.sh to /opt/startup_scripts
-COPY ./container_startup.sh /opt
-COPY ./x11vnc_entrypoint.sh /opt
-COPY ./startup.sh opt/startup_scripts
+COPY ./container_startup.sh /opt/
+COPY ./x11vnc_entrypoint.sh /opt/
+COPY ./startup.sh /opt/startup_scripts/
 
 RUN chmod +x /opt/*.sh \
     && chmod +x /opt/startup_scripts/*.sh \
