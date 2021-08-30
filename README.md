@@ -1,5 +1,6 @@
 # Docker Open Broadcaster Software (OBS)
-This container is based on [bb12489/gui-docker](https://github.com/bb12489/gui-docker) & [bb12489/docker-obs](https://github.com/bb12489/docker-obs). The OBS with NDI is incorporated into the container and can be used to stream your desktop.
+This container is based on [bb12489/gui-docker](https://github.com/bb12489/gui-docker) & [bb12489/docker-obs](https://github.com/bb12489/docker-obs) & [ Daedilus /
+docker-obs-ndi ](https://github.com/Daedilus/docker-obs-ndi). The OBS with NDI is incorporated into the container and can be used to stream your desktop.
 
 Here is a screenshot:
 ![Alt](https://raw.githubusercontent.com/Daedilus/docker-obs-ndi/master/screenshot.png "Example screenshot")
