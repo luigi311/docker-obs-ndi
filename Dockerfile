@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND="noninteractive"
 # for the VNC connection
 EXPOSE 5900
@@ -9,11 +9,12 @@ ENV VNC_PASSWD=123456
 
 # Make sure the dependencies are met
 RUN apt-get update \
-    && apt-get install -y tigervnc-standalone-server fluxbox xterm git net-tools python python-numpy scrot wget software-properties-common vlc avahi-daemon curl \
+    && apt-get install -y tigervnc-standalone-server fluxbox xterm git net-tools python python-numpy scrot wget software-properties-common vlc module-init-tools avahi-daemon curl \
     && sed -i 's/geteuid/getppid/' /usr/bin/vlc \
     && add-apt-repository ppa:obsproject/obs-studio \
     && apt-get update \
-    && apt-get install -y obs-studio
+    && apt-get install -y obs-studio \
+    && rm -rf /var/lib/apt/lists/*
 
 # Build and Install Everything
 RUN git config --global advice.detachedHead false \
@@ -27,8 +28,7 @@ RUN git config --global advice.detachedHead false \
     && echo "${OBS_NDI_LATEST_RELEASE}" | grep "https://github.com/Palakis/obs-ndi/releases/download/" | grep "obs-ndi_" | grep "_amd64.deb" | cut -d : -f 2,3 | tr -d "\"" | wget -O /tmp/obs-ndi_amd64.deb -qi - \
     # install the plugins for NDI
     && dpkg -i /tmp/*.deb \
-    && rm -rf /tmp/*.deb \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /tmp/*.deb
 
 # Copy container_startup.sh to /opt, copy x11vnc_entrypoint.sh to /opt, 
 COPY ./container_startup.sh /opt
