@@ -35,7 +35,9 @@ RUN git config --global advice.detachedHead false \
 	&& mkdir -p /opt/startup_scripts \
 	&& wget -q -O /opt/startup_scripts/startup.sh https://raw.githubusercontent.com/luigi311/docker-obs-ndi/master/startup.sh \
 	&& chmod +x /opt/*.sh \
-	&& chmod +x /opt/startup_scripts/*.sh
+	&& chmod +x /opt/startup_scripts/*.sh && \
+	&& mkdir -p /config/obs-studio /root/.config/ \
+	ln -s /config/obs-studio/ /root/.config/obs-studio
 	 
 # Add menu entries to the container
 RUN echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"OBS Studio\" command=\"obs\"" >> /usr/share/menu/custom-docker \

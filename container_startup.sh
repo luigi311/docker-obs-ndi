@@ -3,7 +3,7 @@
 # if /config/obs-studio does not exist, create it
 if [ ! -d "/config/obs-studio" ]; then
   mkdir -p /config/obs-studio /root/.config/ \
-  ln -s /config/obs-studio/ /root/.config/obs-studio \
+	&& ln -s /config/obs-studio/ /root/.config/obs-studio
 fi
 
 OUR_IP=$(hostname -i)
