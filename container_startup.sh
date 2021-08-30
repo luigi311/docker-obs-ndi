@@ -1,7 +1,4 @@
 #!/bin/bash
-
-ln -s /config /root/.config/obs-studio
-
 OUR_IP=$(hostname -i)
 rm -rf /tmp/.X*
 # start VNC server (Uses VNC_PASSWD Docker ENV variable)
