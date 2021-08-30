@@ -25,10 +25,7 @@ RUN git config --global advice.detachedHead false \
     && OBS_NDI_LATEST_RELEASE=$(curl -s https://api.github.com/repos/Palakis/obs-ndi/releases/latest) \
 	&& echo "${OBS_NDI_LATEST_RELEASE}" | grep "https://github.com/Palakis/obs-ndi/releases/download/" | grep "libndi" | grep "_amd64.deb" | cut -d : -f 2,3 | tr -d "\"" | wget -O /tmp/libndi_amd64.deb -qi - \
     && echo "${OBS_NDI_LATEST_RELEASE}" | grep "https://github.com/Palakis/obs-ndi/releases/download/" | grep "obs-ndi_" | grep "_amd64.deb" | cut -d : -f 2,3 | tr -d "\"" | wget -O /tmp/obs-ndi_amd64.deb -qi - \
-    && mkdir -p /config/obs-studio /root/.config/ \
-	&& ln -s /config/obs-studio/ /root/.config/obs-studio \
     # install the plugins for NDI
-	&& ls /tmp \
 	&& dpkg -i /tmp/*.deb \
 	&& rm -rf /tmp/*.deb \
 	&& rm -rf /var/lib/apt/lists/* \
