@@ -30,6 +30,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/docker-obs-ndi
+          flavor: |
+            latest=true
           tags: |
             type=ref,event=branch
             type=ref,event=pr
