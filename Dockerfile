@@ -35,7 +35,7 @@ COPY ./container_startup.sh /opt
 COPY ./x11vnc_entrypoint.sh /opt
 
 RUN chmod +x /opt/*.sh \
-    && mkdir -p /config /root/.config/obs-studio \
+    && mkdir -p /config /root/.config/ \
     && ln -s /config /root/.config/obs-studio
 
 # Add menu entries to the container
