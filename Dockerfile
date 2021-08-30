@@ -35,8 +35,8 @@ COPY ./container_startup.sh /opt
 COPY ./x11vnc_entrypoint.sh /opt
 
 RUN chmod +x /opt/*.sh \
-    && mkdir -p /config/obs-studio /root/.config/ \
-    && ln -s /config/obs-studio/ /root/.config/obs-studio
+    && mkdir -p /config /root/.config/obs-studio \
+    && ln -s /config /root/.config/obs-studio
 
 # Add menu entries to the container
 RUN echo "?package(bash):needs=\"X11\" section=\"DockerCustom\" title=\"OBS Studio\" command=\"obs\"" >> /usr/share/menu/custom-docker \

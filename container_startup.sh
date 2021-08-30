@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# if /config/obs-studio does not exist, create it
-if [ ! -d "/config/obs-studio" ]; then
-  mkdir -p /config/obs-studio /root/.config/
-fi
-
-ln -s /config/obs-studio/ /root/.config/obs-studio
+ln -s /config /root/.config/obs-studio
 
 OUR_IP=$(hostname -i)
 rm -rf /tmp/.X*
